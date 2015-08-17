@@ -1,0 +1,41 @@
+{
+    "variables": {
+        "ami_name": "",
+        "vpc_id": "",
+        "subnet_id": ""
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "region": "us-east-1",
+            "source_ami": "ami-1ecae776",
+            "instance_type": "m4.large",
+            "ssh_username": "ec2-user",
+            "ami_name": "{{user `ami_name`}}",
+            "subnet_id": "{{user `subnet_id`}}",
+            "vpc_id": "{{user `vpc_id`}}",
+            "security_group_id": "sg-1b06627c"
+        }
+    ],
+    "provisioners" : [
+        {
+            "type": "chef-solo",
+            "cookbook_paths": [
+                "/tmp/berks-cookbooks"
+            ],
+            "run_list": [
+                "jenkins-config::default"
+            ],
+            "json" : {
+                "java": {
+                    "jdk_version": "7"
+                },                
+                "jenkins": {
+                    "executor":{
+                        "timeout": 60
+                    }
+                }
+            }
+        }
+    ]
+}
