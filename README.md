@@ -1,6 +1,6 @@
-# jenkins-ami-creator :tophat:
+# tophat :tophat:
 
-I'm so over setting up Jenkins servers.
+I'm so over setting up Jenkins servers. This repo contains everything you need to create a Jenkins AMI using Packer. Then you just start using that AMI. So easy.
 
 You already have [Berkshelf](http://berkshelf.com/) and [Packer](https://www.packer.io/intro/getting-started/setup.html) installed, right? Nice.
 
