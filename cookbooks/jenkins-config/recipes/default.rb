@@ -1,3 +1,4 @@
+include_recipe 'jenkins-config::jenkins-yum-prereqs'
 include_recipe 'java'
 include_recipe 'git'
 include_recipe 'jenkins::master'

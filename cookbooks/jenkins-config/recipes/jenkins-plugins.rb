@@ -6,5 +6,10 @@ jenkins_plugin 'token-macro'
 jenkins_plugin 'ruby-runtime'
 jenkins_plugin 'ansicolor'
 
-# jenkins_command 'safe-restart'
-
+remote_file '/var/lib/jenkins/plugins/aws-codepipeline-plugin-for-jenkins.hpi' do
+  source 'https://github.com/awslabs/aws-codepipeline-plugin-for-jenkins/blob/master/dist/aws-codepipeline-plugin-for-jenkins.hpi?raw=true'
+  owner 'jenkins'
+  group 'jenkins'
+  mode '0755'
+  action :create
+end
