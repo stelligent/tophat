@@ -17,6 +17,7 @@ And then run
       -var "vpc_id=your_vpc_id" \
       -var "subnet_id=your_subnet_id" \
       -var "ami_name=jenkins_ami_created_`date +%Y%m%d%H%M%S`" \
+      -var "git_repo=url_of_git_repo" \
       jenkins.json 
 
 And then go do some real work.

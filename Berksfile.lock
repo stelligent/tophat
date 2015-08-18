@@ -1,0 +1,36 @@
+DEPENDENCIES
+  git
+  java
+  jenkins
+  jenkins-config
+    path: cookbooks/jenkins-config
+  magic_shell
+
+GRAPH
+  apt (2.7.0)
+  build-essential (2.2.3)
+  chef_handler (1.2.0)
+  dmg (2.2.2)
+  git (4.3.3)
+    build-essential (>= 0.0.0)
+    dmg (>= 0.0.0)
+    windows (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  java (1.35.0)
+  jenkins (2.3.1)
+    apt (~> 2.0)
+    runit (~> 1.5)
+    yum (~> 3.0)
+  jenkins-config (0.0.0)
+    git (>= 0.0.0)
+    java (>= 0.0.0)
+    jenkins (>= 0.0.0)
+  magic_shell (1.0.0)
+  packagecloud (0.0.19)
+  runit (1.7.2)
+    packagecloud (>= 0.0.0)
+  windows (1.38.1)
+    chef_handler (>= 0.0.0)
+  yum (3.6.3)
+  yum-epel (0.6.2)
+    yum (~> 3.2)

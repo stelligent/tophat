@@ -2,7 +2,8 @@
     "variables": {
         "ami_name": "",
         "vpc_id": "",
-        "subnet_id": ""
+        "subnet_id": "",
+        "git_repo": ""
     },
     "builders": [
         {
@@ -17,7 +18,7 @@
             "security_group_id": "sg-1b06627c"
         }
     ],
-    "provisioners" : [
+    "provisioners": [
         {
             "type": "chef-solo",
             "cookbook_paths": [
@@ -26,12 +27,17 @@
             "run_list": [
                 "jenkins-config::default"
             ],
-            "json" : {
+            "json": {
                 "java": {
                     "jdk_version": "7"
-                },                
+                },
+                "project": {
+                    "git": {
+                        "repo": "{{user `git_repo`}}"
+                    }
+                },
                 "jenkins": {
-                    "executor":{
+                    "executor": {
                         "timeout": 60
                     }
                 }

@@ -3,7 +3,7 @@ template "/var/tmp/job-seed.xml" do
 
   variables(
     {
-    :source_repo => "https://github.com/stelligent/keystore.git"
+    :source_repo => node[:project][:git][:repo]
     }
   )
 end
