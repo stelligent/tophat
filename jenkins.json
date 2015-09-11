@@ -9,8 +9,9 @@
     "builders": [
         {
             "type": "amazon-ebs",
+            "ssh_pty": "true",
             "region": "us-east-1",
-            "source_ami": "ami-1ecae776",
+            "source_ami": "ami-0d4cfd66",
             "instance_type": "m4.large",
             "ssh_username": "ec2-user",
             "ami_name": "{{user `ami_name`}}",
