@@ -16,6 +16,7 @@ And then run
     packer build \
       -var "vpc_id=your_vpc_id" \
       -var "subnet_id=your_subnet_id" \
+      -var "sg_id=your_securitygroup_id" \
       -var "ami_name=jenkins_ami_created_`date +%Y%m%d%H%M%S`" \
       -var "git_repo=url_of_git_repo" \
       jenkins.json 
