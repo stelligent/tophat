@@ -1,3 +1,11 @@
+if ['rhel', 'amazon'].include?(node['platform'])
+  execute 'yum upgrade -y'
+end
+if ['ubuntu'].include?(node['platform'])
+  execute 'aptitude update'
+  execute 'aptitude upgrade -y'
+end
+
 include_recipe 'jenkins-config::jenkins-yum-prereqs'
 include_recipe 'java'
 include_recipe 'git'
