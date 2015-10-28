@@ -5,6 +5,7 @@ jenkins_plugin 'rvm'
 jenkins_plugin 'token-macro'
 jenkins_plugin 'ruby-runtime'
 jenkins_plugin 'ansicolor'
+jenkins_plugin 'delivery-pipeline-plugin'
 
 remote_file '/var/lib/jenkins/plugins/aws-codepipeline-plugin-for-jenkins.hpi' do
   source 'https://github.com/awslabs/aws-codepipeline-plugin-for-jenkins/blob/master/dist/aws-codepipeline-plugin-for-jenkins.hpi?raw=true'
