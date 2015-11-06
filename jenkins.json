@@ -9,7 +9,6 @@
     "builders": [
         {
             "type": "amazon-ebs",
-            "ssh_pty": "true",
             "associate_public_ip_address": true,
             "region": "us-east-1",
             "source_ami": "ami-e3106686",
