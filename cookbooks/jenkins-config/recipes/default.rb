@@ -1,9 +1,21 @@
-if ['rhel', 'amazon'].include?(node['platform'])
+if ['rhel'].include?(node['platform_family'])
+  # XXX should this instead do security updates instead of full
+  # system updates?
   execute 'yum upgrade -y'
+  # default repository should be the Long-Term Support release
+  # https://wiki.jenkins-ci.org/display/JENKINS/LTS+Release+Line
+  node.default['jenkins']['master']['repository'] = 'http://pkg.jenkins-ci.org/redhat-stable'
+  node.default['jenkins']['master']['repository_key'] = 'http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key'
 end
-if ['ubuntu'].include?(node['platform'])
+if ['debian'].include?(node['platform'])
+  # XXX should this instead do security updates instead of full
+  # system updates?
   execute 'aptitude update'
   execute 'aptitude upgrade -y'
+  # default repository should be the Long-Term Support release
+  # https://wiki.jenkins-ci.org/display/JENKINS/LTS+Release+Line
+  node.default['jenkins']['master']['repository'] = 'http://pkg.jenkins-ci.org/debian-stable'
+  node.default['jenkins']['master']['repository_key'] = 'http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key'
 end
 
 include_recipe 'jenkins-config::jenkins-yum-prereqs'
