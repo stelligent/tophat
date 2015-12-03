@@ -12,8 +12,9 @@ if ['debian'].include?(node['platform_family'])
   include_recipe 'apt::default'
   # XXX should this instead do security updates instead of full
   # system updates?
-  execute 'aptitude update'
-  execute 'aptitude upgrade -y'
+  execute 'apt-get upgrade -y' do
+    environment ({'DEBIAN_FRONTEND' => 'noninteractive'})
+  end
   # default repository should be the Long-Term Support release
   # https://wiki.jenkins-ci.org/display/JENKINS/LTS+Release+Line
   node.default['jenkins']['master']['repository'] = 'http://pkg.jenkins-ci.org/debian-stable'
