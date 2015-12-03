@@ -8,6 +8,8 @@ if ['rhel'].include?(node['platform_family'])
   node.default['jenkins']['master']['repository_key'] = 'http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key'
 end
 if ['debian'].include?(node['platform_family'])
+  node.default['apt']['compile_time_update'] = true
+  include_recipe 'apt::default'
   # XXX should this instead do security updates instead of full
   # system updates?
   execute 'aptitude update'
