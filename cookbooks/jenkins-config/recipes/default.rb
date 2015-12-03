@@ -7,7 +7,7 @@ if ['rhel'].include?(node['platform_family'])
   node.default['jenkins']['master']['repository'] = 'http://pkg.jenkins-ci.org/redhat-stable'
   node.default['jenkins']['master']['repository_key'] = 'http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key'
 end
-if ['debian'].include?(node['platform'])
+if ['debian'].include?(node['platform_family'])
   # XXX should this instead do security updates instead of full
   # system updates?
   execute 'aptitude update'
