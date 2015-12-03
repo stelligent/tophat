@@ -21,7 +21,7 @@ if ['debian'].include?(node['platform_family'])
   node.default['jenkins']['master']['repository_key'] = 'http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key'
 end
 
-include_recipe 'jenkins-config::jenkins-yum-prereqs'
+include_recipe 'jenkins-config::prereqs'
 include_recipe 'java'
 include_recipe 'git'
 include_recipe 'jenkins::master'
