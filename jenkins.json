@@ -11,7 +11,7 @@
             "type": "amazon-ebs",
             "associate_public_ip_address": true,
             "region": "us-east-1",
-            "source_ami": "ami-e3106686",
+            "source_ami": "ami-60b6c60a",
             "instance_type": "m4.large",
             "ssh_username": "ec2-user",
             "ami_name": "{{user `ami_name`}}",
