@@ -44,6 +44,17 @@
                     }
                 }
             }
+        },{
+            "type": "file",
+            "source": "./test/",
+            "destination": "/tmp/infra-tests"
+        },{
+            "type": "shell",
+            "inline": [
+                "sudo bash -l -c 'gem install serverspec'",
+                "sudo bash -l -c 'cd /tmp/infra-tests && /usr/local/bin/rspec default/serverspec/*_spec.rb'",
+                "sudo rm -f $HOME/.ssh/authorized_keys /root/.ssh/authorized_keys"
+            ]
         }
     ]
 }
