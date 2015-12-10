@@ -1,6 +1,5 @@
 {
     "variables": {
-        "ami_name": "",
         "vpc_id": "",
         "subnet_id": "",
         "sg_id": "",
@@ -14,7 +13,7 @@
             "source_ami": "ami-60b6c60a",
             "instance_type": "m4.large",
             "ssh_username": "ec2-user",
-            "ami_name": "{{user `ami_name`}}",
+            "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
             "subnet_id": "{{user `subnet_id`}}",
             "vpc_id": "{{user `vpc_id`}}",
             "security_group_id": "{{user `sg_id`}}"
