@@ -1,0 +1,28 @@
+---
+provisioner:
+  name: chef_solo
+  cookbooks_path:
+    - ./cookbooks
+
+platforms:
+  - name: amzn-linux
+    driver:
+      name: ec2
+      image_id: ami-60b6c60a
+      require_chef_omnibus: true
+      instance_type: m4.large
+      region: us-east-1
+      aws_ssh_key_id: <%= ENV['TOPHAT_EC2_KEY'] %>
+      security_group_ids: <%= ENV['TOPHAT_SG'] %>
+      subnet_id: <%= ENV['TOPHAT_SUBNET_ID'] %>
+      tags:
+        Name: jenkins-test-kitchen
+        owner: <%= ENV['USER'] %>
+    transport:
+      username: ec2-user
+      associate_public_ip: true
+
+suites:
+  - name: default
+    run_list:
+      - recipe[jenkins-config::default]
