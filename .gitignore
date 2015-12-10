@@ -38,3 +38,6 @@ ehthumbs.db
 Thumbs.db
 .kitchen/
 .kitchen.local.yml
+
+# Berksshelf cache
+.berkscache
