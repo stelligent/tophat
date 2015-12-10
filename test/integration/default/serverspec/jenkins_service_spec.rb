@@ -16,5 +16,5 @@ end
 
 describe command('curl -s http://127.0.0.1:8080/') do
 	its(:exit_status) { should eq 0 }
-  its(:stdout) { should match /(Jenkins|Authentication required)/ }
+  its(:stdout) { should match /Log in<\/a> to create new jobs/ }
 end
