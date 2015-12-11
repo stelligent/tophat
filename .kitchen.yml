@@ -21,8 +21,11 @@ platforms:
     transport:
       username: ec2-user
       associate_public_ip: true
+  - name: ubuntu-14.04
+  - name: centos-7.1
 
 suites:
   - name: default
     run_list:
       - recipe[jenkins-config::default]
+    attributes:
