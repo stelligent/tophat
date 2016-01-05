@@ -1,9 +1,9 @@
 {
     "variables": {
-        "ami_name": "",
         "vpc_id": "",
         "subnet_id": "",
         "sg_id": "",
+        "berks_cookbooks_path": "",
         "git_repo": ""
     },
     "builders": [
@@ -11,10 +11,11 @@
             "type": "amazon-ebs",
             "associate_public_ip_address": true,
             "region": "us-east-1",
-            "source_ami": "ami-e3106686",
+            "source_ami": "ami-60b6c60a",
             "instance_type": "m4.large",
             "ssh_username": "ec2-user",
-            "ami_name": "{{user `ami_name`}}",
+            "ssh_pty" : "true",
+            "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
             "subnet_id": "{{user `subnet_id`}}",
             "vpc_id": "{{user `vpc_id`}}",
             "security_group_id": "{{user `sg_id`}}"
@@ -24,7 +25,7 @@
         {
             "type": "chef-solo",
             "cookbook_paths": [
-                "/tmp/berks-cookbooks"
+                "{{user `berks_cookbooks_path`}}"
             ],
             "run_list": [
                 "jenkins-config::default"
@@ -44,6 +45,17 @@
                     }
                 }
             }
+        },{
+            "type": "file",
+            "source": "./test/",
+            "destination": "/tmp/infra-tests"
+        },{
+            "type": "shell",
+            "inline": [
+                "sudo bash -l -c 'gem install serverspec'",
+                "sudo bash -l -c 'cd /tmp/infra-tests && /usr/local/bin/rspec default/serverspec/*_spec.rb'",
+                "sudo rm -f $HOME/.ssh/authorized_keys /root/.ssh/authorized_keys"
+            ]
         }
     ]
 }
