@@ -2,7 +2,13 @@ require 'serverspec'
 
 set :backend, :exec
 
+# RedHat has curl
 describe command('curl -s -o ~/jenkins-cli.jar http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar') do
+	its(:exit_status) { should eq 0 }
+end
+
+# Ubuntu has wget
+describe command('wget -q -O ~/jenkins-cli.jar http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar') do
 	its(:exit_status) { should eq 0 }
 end
 
