@@ -1,48 +1,34 @@
-jenkins_plugin 'git'
-jenkins_plugin 'job-dsl'
-jenkins_plugin 'envinject'
-jenkins_plugin 'rvm'
-jenkins_plugin 'token-macro'
-jenkins_plugin 'ruby-runtime'
-jenkins_plugin 'ansicolor'
-jenkins_plugin 'delivery-pipeline-plugin'
-jenkins_plugin 'aws-codepipeline'
+# node['jenkins-config']['jenkins-plugins'] should be an array
+# of hashes like
+#
+# node['jenkins-config']['plugins'] = [
+# { 'name' => 'git',
+#   'version' => '2.4.0 },
+# { 'name' => 'ssh-credentials',
+#   'version' => '1.11',
+#   'core' => true } ]
+#
+# name: required, name of plugin to install
+# version: optional, version of plugin
+# core: optional, whether to create a .pinned file for a core module
+# pinned: optional, alias to core
 
-service 'jenkins' do
-  action :restart
+node['jenkins-config']['jenkins-plugins'].each do |plugin|
+  if plugin['core'] || plugin['pinned']
+    file "/var/lib/jenkins/plugins/#{plugin['name']}.jpi.pinned" do
+      mode   '0644'
+      owner  node['jenkins']['master']['user']
+      group  node['jenkins']['master']['group']
+      action :touch
+    end
+  end
+  jenkins_plugin plugin['name'] do
+    version plugin['version'] unless plugin['version'].nil?
+  end
+end unless node['jenkins-config']['jenkins-plugins'].nil? ||
+           !node['jenkins-config']['jenkins-plugins'].respond_to?(:each)
+
+log 'restarting jenkins after plugin installs' do
+  notifies :restart, 'service[jenkins]', :immediately
 end
 
-bash 'update jenkins plugins' do
-  flags '-ex'
-  code <<-EOB
-    wait_for_jenkins() {
-      count=0
-      jenkins_running='false';
-      while [ "$jenkins_running" = 'false' ]; do
-        test $count -lt 30 || exit 1
-        if curl -s -o ~/jenkins-cli.jar http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar && \
-           file ~/jenkins-cli.jar | grep -q 'Zip archive'; then
-          jenkins_running='true'
-        else
-          sleep 3
-        fi
-        count=$(($count + 1))
-      done
-    }
-
-    wait_for_jenkins
-
-    [ -e ~/jenkins-cli.jar ] || \
-      curl -s -o ~/jenkins-cli.jar http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar
-
-    UPDATE_LIST=$(java -jar ~/jenkins-cli.jar -s http://127.0.0.1:8080/ list-plugins | grep ')$' | awk '{ print $1 }')
-    [ -n "${UPDATE_LIST}" ] || exit 0
-
-    echo Updating Jenkins Plugins: ${UPDATE_LIST};
-    java -jar ~/jenkins-cli.jar -s http://127.0.0.1:8080/ install-plugin ${UPDATE_LIST}
-
-    java -jar ~/jenkins-cli.jar -s http://127.0.0.1:8080/ safe-restart
-    sleep 10
-    wait_for_jenkins
-  EOB
-end
