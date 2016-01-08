@@ -12,7 +12,16 @@ describe command('wget -q -O ~/jenkins-cli.jar http://127.0.0.1:8080/jnlpJars/je
   its(:exit_status) { should eq 0 }
 end
 
+# verify all plugins defined in the plugins list
+# are output by the jenkins cli utility as installed
+# TODO
+# version checking
 describe command('java -jar ~/jenkins-cli.jar -s http://127.0.0.1:8080/ list-plugins') do
-	its(:exit_status) { should eq 0 }
-  its(:stdout) { should_not match /\)$/ }
+  its(:exit_status) { should eq 0 }
+  plugins = %w(git job-dsl envinject rvm token-macro
+              ruby-runtime ansicolor delivery-pipeline-plugin
+              aws-codepipeline)
+  plugins.each do |plugin|
+    its(:stdout) { should match /#{plugin}/ }
+  end
 end
