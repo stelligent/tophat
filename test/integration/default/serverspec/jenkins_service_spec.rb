@@ -1,6 +1,4 @@
-require 'serverspec'
-
-set :backend, :exec
+require 'spec_helper'
 
 describe package('jenkins'), :if => os[:family] == 'redhat' do
   it { should be_installed }
