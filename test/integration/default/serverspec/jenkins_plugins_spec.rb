@@ -2,7 +2,7 @@ require 'spec_helper'
 
 # RedHat has curl
 describe command('curl -s -o ~/jenkins-cli.jar http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar'),
-         :if => os[:family] == 'redhat' do
+         :if => %w(redhat amazon).include?(os[:family]) do
   its(:exit_status) { should eq 0 }
 end
 
