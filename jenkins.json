@@ -52,8 +52,11 @@
         },{
             "type": "shell",
             "inline": [
-                "sudo bash -l -c 'gem install serverspec'",
-                "sudo bash -l -c 'cd /tmp/infra-tests && /usr/local/bin/rspec default/serverspec/*_spec.rb'",
+                "sudo yum -y install rubygem20-io-console",
+                "sudo gem install serverspec",
+                "sudo gem install bundler",
+                "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && /usr/local/bin/bundle install'",
+                "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && env RUBYLIB=`pwd` /usr/local/bin/rspec *_spec.rb'",
                 "sudo rm -f $HOME/.ssh/authorized_keys /root/.ssh/authorized_keys"
             ]
         }
