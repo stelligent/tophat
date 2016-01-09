@@ -18,8 +18,8 @@ describe service('jenkins'), :if => os[:family] == 'ubuntu' do
   it { should be_running }
 end
 
-describe port(8080), :if => (os[:family] == 'ubuntu' or
-                             os[:family] == 'redhat') do
+describe port(8080), :if =>
+    %w(ubuntu redhat).include?(os[:family]) do
   it { should be_listening.with('tcp6') }
 end
 
