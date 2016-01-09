@@ -23,6 +23,11 @@ describe port(8080), :if =>
   it { should be_listening.with('tcp6') }
 end
 
+describe port(8080), :if =>
+    %w(amazon).include?(os[:family]) do
+  it { should be_listening.with('tcp') }
+end
+
 describe http_get('http://localhost:8080/') do
   its(:body) { should match /Log in<\/a> to create new jobs/ }
 end
