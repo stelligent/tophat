@@ -8,6 +8,7 @@ node.default['jenkins-config']['jenkins-plugins'] = [
   {'name'    => 'ruby-runtime'},
   {'name'    => 'ansicolor'},
   {'name'    => 'delivery-pipeline-plugin'},
-  {'name'    => 'aws-codepipeline'}
+  {'name'    => 'aws-codepipeline'},
+  {'name'    => 'workflow-aggregator'}
 ]
 
