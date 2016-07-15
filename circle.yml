@@ -1,0 +1,13 @@
+general:
+  branches:
+    only:
+      - feature/circleci
+
+deployment:
+  aws:
+    commands:
+      - ./packer-build.sh
+
+machine:
+  ruby:
+    version: '2.2.1'
