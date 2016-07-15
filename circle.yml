@@ -5,6 +5,7 @@ general:
 
 deployment:
   aws:
+    branch: feature/circelci
     commands:
       - ./packer-build.sh
 
