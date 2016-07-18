@@ -19,7 +19,7 @@ deployment:
   packer:
     branch: feature/circleci
     commands:
-      - ./packer-build.sh sg-53c5bc35 subnet-6f53a519
+      - bundle exec ./packer-build.sh sg-53c5bc35 subnet-6f53a519
 
 machine:
   ruby:
