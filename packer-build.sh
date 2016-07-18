@@ -22,6 +22,11 @@ test -n "$sg_id"
 
 [ -d "$berks_cookbook_path" ] || mkdir "$berks_cookbook_path"
 
+declare -A ami_mapping
+ami_mapping[us-east-1]=ami-6d1c2007
+ami_mapping[us-west-1]=ami-af4333cf
+ami_mapping[us-west-2]=ami-d2c924b2
+
 berks vendor "$berks_cookbook_path"
 packer build \
     -var "vpc_id=$vpc_id" \
@@ -29,4 +34,5 @@ packer build \
     -var "sg_id=$sg_id" \
     -var "berks_cookbooks_path=$berks_cookbook_path" \
     -var "region=${AWS_REGION}" \
+    -var "source_ami=${ami_mapping[${AWS_REGION}]}" \
     jenkins.json

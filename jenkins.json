@@ -5,14 +5,15 @@
         "sg_id": "",
         "berks_cookbooks_path": "",
         "git_repo": "",
-        "region": "us-east-1"
+        "region": "us-east-1",
+        "source_ami": "ami-60b6c60a"
     },
     "builders": [
         {
             "type": "amazon-ebs",
             "associate_public_ip_address": true,
             "region": "{{user `region`}}",
-            "source_ami": "ami-60b6c60a",
+            "source_ami": "{{user `source_ami`}}",
             "instance_type": "m4.large",
             "ssh_username": "ec2-user",
             "ssh_pty" : "true",
