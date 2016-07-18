@@ -7,8 +7,7 @@ node.default['jenkins-config']['jenkins-plugins'] = [
   {'name'    => 'token-macro'},
   {'name'    => 'ruby-runtime'},
   {'name'    => 'ansicolor'},
-  {'name'    => 'delivery-pipeline-plugin'},
   {'name'    => 'aws-codepipeline'},
-  {'name'    => 'workflow-aggregator'}
+  {'name'    => 'matrix-auth'}
 ]
 

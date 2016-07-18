@@ -19,7 +19,7 @@ end
 describe command('java -jar ~/jenkins-cli.jar -s http://127.0.0.1:8080/ list-plugins') do
   its(:exit_status) { should eq 0 }
   plugins = %w(git job-dsl envinject rvm token-macro
-              ruby-runtime ansicolor delivery-pipeline-plugin
+              ruby-runtime ansicolor matrix-auth
               aws-codepipeline)
   plugins.each do |plugin|
     its(:stdout) { should match /#{plugin}/ }
