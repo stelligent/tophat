@@ -8,7 +8,7 @@ test:
     - bundle exec kitchen test
 
 deployment:
-  aws:
+  packer:
     branch: feature/circelci
     commands:
       - ./packer-build.sh
