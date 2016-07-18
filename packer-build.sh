@@ -28,4 +28,5 @@ packer build \
     -var "subnet_id=$subnet_id" \
     -var "sg_id=$sg_id" \
     -var "berks_cookbooks_path=$berks_cookbook_path" \
+    -var "region=${AWS_REGION}" \
     jenkins.json
