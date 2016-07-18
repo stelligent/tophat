@@ -5,7 +5,7 @@ general:
 
 test:
   override:
-    - kitchen test
+    - bundle exec kitchen test
 
 deployment:
   aws:
