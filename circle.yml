@@ -12,8 +12,6 @@ dependencies:
     - wget https://releases.hashicorp.com/packer/0.10.1/packer_0.10.1_linux_amd64.zip
     - unzip packer_0.10.1_linux_amd64.zip
     - chmod u+x packer
-    - whoami
-    - echo $PATH
     - sudo mv packer /usr/local/bin
     #- apt-get install -y awscli
 

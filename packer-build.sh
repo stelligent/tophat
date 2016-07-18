@@ -14,7 +14,7 @@ done
 
 subnet_id="$TOPHAT_SUBNET_ID"
 sg_id="$TOPHAT_SG"
-vpc_id="$(aws ec2 describe-subnets --subnet-ids $subnet_id --query 'Subnets[0].VpcId' --output=text)"
+vpc_id="$(aws ec2 describe-subnets --subnet-ids $subnet_id --query 'Subnets[0].VpcId' --output=text --region ${AWS_REGION})"
 
 test -n "$vpc_id"
 test -n "$subnet_id"
