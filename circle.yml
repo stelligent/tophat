@@ -9,7 +9,7 @@ test:
 
 deployment:
   packer:
-    branch: feature/circelci
+    branch: feature/circleci
     commands:
       - ./packer-build.sh
 
