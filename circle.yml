@@ -3,6 +3,10 @@ general:
     only:
       - feature/circleci
 
+test:
+  override:
+    - kitchen test
+
 deployment:
   aws:
     branch: feature/circelci
