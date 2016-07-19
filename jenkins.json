@@ -86,7 +86,7 @@
         {
             "type": "shell",
             "inline": [
-                "sudo yum -y install rubygem20-io-console",
+                "sudo yum -y install rubygem20-io-console"
             ],
             "only": ["amznlinux"]
         },
@@ -100,7 +100,7 @@
         {
             "type": "shell",
             "inline": [
-                "apt-add-repository -y ppa:brightbox/ruby-ng",
+                "apt-add-repository -y ppa:brightbox/ruby-ng"
                 "apt-get update",
                 "apt-get install ruby2.2",
             ],
