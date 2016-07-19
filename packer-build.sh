@@ -29,8 +29,7 @@ ssh_username=$(ruby -e "require 'yaml'" \
                     -e "puts YAML.load(IO.read('source_amis.yml'))['${AWS_REGION}']['${target_os}']['ssh_username']")
 
 berks vendor "$berks_cookbook_path"
-packer build \
-    -debug \
+PACKER_LOG=1 packer build \
     -only ${target_os_family}  \
     -var "vpc_id=$vpc_id" \
     -var "subnet_id=$subnet_id" \
