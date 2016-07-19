@@ -13,13 +13,12 @@ dependencies:
     - unzip packer_0.10.1_linux_amd64.zip
     - chmod u+x packer
     - sudo mv packer /usr/local/bin
-    #- apt-get install -y awscli
 
 deployment:
   packer:
     branch: feature/circleci
     commands:
-      - bundle exec ./packer-build.sh subnet-6f53a519
+      - bundle exec ./packer-build.sh subnet-6f53a519 ubuntu-1404
 
 machine:
   ruby:

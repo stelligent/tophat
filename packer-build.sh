@@ -5,15 +5,14 @@ cd "$(dirname "$0")"
 berks_cookbook_path="./.berkscache"
 
 for arg in "$@"; do
-    if [[ "$arg" = sg-* ]]; then
-        TOPHAT_SG="$arg"
-    elif [[ "$arg" = subnet-* ]]; then
+    if [[ "$arg" = subnet-* ]]; then
         TOPHAT_SUBNET_ID="$arg"
+    else
+        target_os="$arg"
     fi
 done
 
 subnet_id="$TOPHAT_SUBNET_ID"
-sg_id="$TOPHAT_SG"
 vpc_id="$(aws ec2 describe-subnets --subnet-ids $subnet_id --query 'Subnets[0].VpcId' --output=text --region ${AWS_REGION})"
 
 test -n "$vpc_id"
@@ -21,7 +20,6 @@ test -n "$subnet_id"
 
 [ -d "$berks_cookbook_path" ] || mkdir "$berks_cookbook_path"
 
-target_os=centos-7
 target_os_family=${target_os%%-*}
 
 source_ami=$(ruby -e "require 'yaml'" \
