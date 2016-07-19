@@ -39,4 +39,5 @@ packer build \
     -var "region=${AWS_REGION}" \
     -var "source_ami=${source_ami}" \
     -var "ssh_username=${ssh_username}" \
+    -var "target_os=${target_os}" \
     jenkins.json

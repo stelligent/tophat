@@ -6,7 +6,8 @@
         "git_repo": "",
         "region": "us-east-1",
         "source_ami": "ami-60b6c60a",
-        "ssh_username": "ec2-user"
+        "ssh_username": "ec2-user",
+        "target_os": ""
     },
     "builders": [
         {
@@ -20,7 +21,10 @@
             "ssh_pty" : "true",
             "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
             "subnet_id": "{{user `subnet_id`}}",
-            "vpc_id": "{{user `vpc_id`}}"
+            "vpc_id": "{{user `vpc_id`}}",
+            "tags": {
+              "os": "{{user `target_os`}}"
+            }
         },
         {
             "name": "ubuntu",
@@ -33,7 +37,10 @@
             "ssh_pty" : "true",
             "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
             "subnet_id": "{{user `subnet_id`}}",
-            "vpc_id": "{{user `vpc_id`}}"
+            "vpc_id": "{{user `vpc_id`}}",
+            "tags": {
+              "os": "{{user `target_os`}}"
+            }
         },
         {
             "name": "amznlinux",
@@ -46,7 +53,10 @@
             "ssh_pty" : "true",
             "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
             "subnet_id": "{{user `subnet_id`}}",
-            "vpc_id": "{{user `vpc_id`}}"
+            "vpc_id": "{{user `vpc_id`}}",
+            "tags": {
+              "os": "{{user `target_os`}}"
+            }
         }
     ],
     "provisioners": [
