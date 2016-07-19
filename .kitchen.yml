@@ -9,8 +9,9 @@ provisioner:
     - ./cookbooks
 
 platforms:
-  - name: ubuntu-14.04
-  #- name: centos-7.1
+  #mknod on docker ubuntu that gets pulled in by java is not happy
+  #- name: ubuntu-14.04
+  - name: centos-7.1
 
 suites:
   - name: default
