@@ -6,10 +6,12 @@
         "git_repo": "",
         "region": "us-east-1",
         "source_ami": "ami-60b6c60a",
-        "ssh_username": "ec2-user"
+        "ssh_username": "ec2-user",
+        "target_os_family": "amznlinux"
     },
     "builders": [
         {
+            "name": "{{user `target_os_family`}}",
             "type": "amazon-ebs",
             "associate_public_ip_address": true,
             "region": "{{user `region`}}",
