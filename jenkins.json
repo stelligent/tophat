@@ -93,16 +93,16 @@
         {
             "type": "shell",
             "inline": [
-                "sudo yum -y install ruby",
+                "sudo yum -y install ruby"
             ],
             "only": ["centos"]
         },
         {
             "type": "shell",
             "inline": [
-                "apt-add-repository -y ppa:brightbox/ruby-ng"
+                "apt-add-repository -y ppa:brightbox/ruby-ng",
                 "apt-get update",
-                "apt-get install ruby2.2",
+                "apt-get install ruby2.2"
             ],
             "only": ["ubuntu"]
         },
