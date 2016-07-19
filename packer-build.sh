@@ -18,7 +18,6 @@ vpc_id="$(aws ec2 describe-subnets --subnet-ids $subnet_id --query 'Subnets[0].V
 
 test -n "$vpc_id"
 test -n "$subnet_id"
-test -n "$sg_id"
 
 [ -d "$berks_cookbook_path" ] || mkdir "$berks_cookbook_path"
 
