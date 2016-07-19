@@ -41,6 +41,10 @@
                     }
                 },
                 "jenkins": {
+                    "master": {
+                        "jvm_options": "-Djenkins.install.runSetupWizard=false"
+                    },
+                  
                     "executor": {
                         "timeout": 60
                     }
