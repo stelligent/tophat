@@ -63,7 +63,7 @@
                 "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && /usr/local/bin/bundle install'",
                 "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && env RUBYLIB=`pwd` /usr/local/bin/rspec *_spec.rb'",
                 "sudo rm -f $HOME/.ssh/authorized_keys /root/.ssh/authorized_keys"
-            ]
+            ],
             "only": ["amznlinux"]
         },{
             "type": "shell",
