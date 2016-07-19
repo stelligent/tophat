@@ -44,7 +44,7 @@
                     "master": {
                         "jvm_options": "-Djenkins.install.runSetupWizard=false"
                     },
-                  
+
                     "executor": {
                         "timeout": 60
                     }
@@ -57,7 +57,6 @@
         },{
             "type": "shell",
             "inline": [
-                "sudo yum -y install rubygem20-io-console",
                 "sudo gem install serverspec",
                 "sudo gem install bundler",
                 "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && /usr/local/bin/bundle install'",
