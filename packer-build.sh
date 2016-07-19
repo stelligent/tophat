@@ -31,7 +31,6 @@ berks vendor "$berks_cookbook_path"
 packer build \
     -var "vpc_id=$vpc_id" \
     -var "subnet_id=$subnet_id" \
-    -var "sg_id=$sg_id" \
     -var "berks_cookbooks_path=$berks_cookbook_path" \
     -var "region=${AWS_REGION}" \
     -var "source_ami=${ami_mapping[${AWS_REGION}]}" \
