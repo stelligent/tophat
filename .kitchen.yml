@@ -9,13 +9,13 @@ provisioner:
     - ./cookbooks
 
 platforms:
-#  - name: ubuntu-14.04
-  - name: centos-7.1
+  - name: ubuntu-14.04
+  #- name: centos-7.1
 
 suites:
   - name: default
     run_list:
-      #- recipe[jenkins-config::default]
+      - recipe[jenkins-config::default]
     attributes:
       jenkins:
         master:
