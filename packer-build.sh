@@ -21,17 +21,22 @@ test -n "$subnet_id"
 
 [ -d "$berks_cookbook_path" ] || mkdir "$berks_cookbook_path"
 
-declare -A ami_mapping
-ami_mapping[us-east-1]=ami-6d1c2007
-ami_mapping[us-west-1]=ami-af4333cf
-ami_mapping[us-west-2]=ami-d2c924b2
+target_os=centos-7
+target_os_family=${target_os%%-*}
+
+source_ami=$(ruby -e "require 'yaml'" \
+                  -e "puts YAML.load(IO.read('source_amis.yml'))['${AWS_REGION}']['${target_os}']['ami_id']")
+
+ssh_username=$(ruby -e "require 'yaml'" \
+                    -e "puts YAML.load(IO.read('source_amis.yml'))['${AWS_REGION}']['${target_os}']['ssh_username']")
 
 berks vendor "$berks_cookbook_path"
 packer build \
+    -only ${target_os_family}  \
     -var "vpc_id=$vpc_id" \
     -var "subnet_id=$subnet_id" \
     -var "berks_cookbooks_path=$berks_cookbook_path" \
     -var "region=${AWS_REGION}" \
-    -var "source_ami=${ami_mapping[${AWS_REGION}]}" \
-    -var "ssh_username=centos" \
+    -var "source_ami=${source_ami}" \
+    -var "ssh_username=${ssh_username}" \
     jenkins.json
