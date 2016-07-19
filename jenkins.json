@@ -5,7 +5,8 @@
         "berks_cookbooks_path": "",
         "git_repo": "",
         "region": "us-east-1",
-        "source_ami": "ami-60b6c60a"
+        "source_ami": "ami-60b6c60a",
+        "ssh_username": "ec2-user"
     },
     "builders": [
         {
@@ -14,7 +15,7 @@
             "region": "{{user `region`}}",
             "source_ami": "{{user `source_ami`}}",
             "instance_type": "m4.large",
-            "ssh_username": "ec2-user",
+            "ssh_username": "{{user `ssh_username`}}",
             "ssh_pty" : "true",
             "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
             "subnet_id": "{{user `subnet_id`}}",

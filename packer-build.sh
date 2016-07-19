@@ -33,4 +33,5 @@ packer build \
     -var "berks_cookbooks_path=$berks_cookbook_path" \
     -var "region=${AWS_REGION}" \
     -var "source_ami=${ami_mapping[${AWS_REGION}]}" \
+    -var "ssh_username=centos" \
     jenkins.json
