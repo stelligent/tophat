@@ -15,7 +15,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[jenkins-config::default]
+      #- recipe[jenkins-config::default]
     attributes:
       jenkins:
         master:
