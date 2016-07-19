@@ -32,7 +32,7 @@ ssh_username=$(ruby -e "require 'yaml'" \
 
 berks vendor "$berks_cookbook_path"
 packer build \
-    -var "target_os_family=${target_os_family}"  \
+    -only ${target_os_family}  \
     -var "vpc_id=$vpc_id" \
     -var "subnet_id=$subnet_id" \
     -var "berks_cookbooks_path=$berks_cookbook_path" \

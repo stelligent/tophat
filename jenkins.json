@@ -6,12 +6,37 @@
         "git_repo": "",
         "region": "us-east-1",
         "source_ami": "ami-60b6c60a",
-        "ssh_username": "ec2-user",
-        "target_os_family": "amznlinux"
+        "ssh_username": "ec2-user"
     },
     "builders": [
         {
-            "name": "{{user `target_os_family`}}",
+            "name": "centos",
+            "type": "amazon-ebs",
+            "associate_public_ip_address": true,
+            "region": "{{user `region`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "instance_type": "m4.large",
+            "ssh_username": "{{user `ssh_username`}}",
+            "ssh_pty" : "true",
+            "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
+            "subnet_id": "{{user `subnet_id`}}",
+            "vpc_id": "{{user `vpc_id`}}"
+        },
+        {
+            "name": "ubuntu",
+            "type": "amazon-ebs",
+            "associate_public_ip_address": true,
+            "region": "{{user `region`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "instance_type": "m4.large",
+            "ssh_username": "{{user `ssh_username`}}",
+            "ssh_pty" : "true",
+            "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
+            "subnet_id": "{{user `subnet_id`}}",
+            "vpc_id": "{{user `vpc_id`}}"
+        },
+        {
+            "name": "amznlinux",
             "type": "amazon-ebs",
             "associate_public_ip_address": true,
             "region": "{{user `region`}}",
@@ -52,38 +77,38 @@
                     }
                 }
             }
-        },{
+        },
+        {
             "type": "file",
             "source": "./test/",
             "destination": "/tmp/infra-tests"
-        },{
+        },
+        {
             "type": "shell",
             "inline": [
                 "sudo yum -y install rubygem20-io-console",
-                "sudo gem install serverspec",
-                "sudo gem install bundler",
-                "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && /usr/local/bin/bundle install'",
-                "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && env RUBYLIB=`pwd` /usr/local/bin/rspec *_spec.rb'",
-                "sudo rm -f $HOME/.ssh/authorized_keys /root/.ssh/authorized_keys"
             ],
             "only": ["amznlinux"]
-        },{
+        },
+        {
             "type": "shell",
             "inline": [
                 "sudo yum -y install ruby",
-                "sudo gem install serverspec",
-                "sudo gem install bundler",
-                "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && /usr/local/bin/bundle install'",
-                "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && env RUBYLIB=`pwd` /usr/local/bin/rspec *_spec.rb'",
-                "sudo rm -f $HOME/.ssh/authorized_keys /root/.ssh/authorized_keys"
             ],
             "only": ["centos"]
-        },{
+        },
+        {
             "type": "shell",
             "inline": [
                 "apt-add-repository -y ppa:brightbox/ruby-ng",
                 "apt-get update",
                 "apt-get install ruby2.2",
+            ],
+            "only": ["ubuntu"]
+        },
+        {
+            "type": "shell",
+            "inline": [
                 "sudo gem install serverspec",
                 "sudo gem install bundler",
                 "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && /usr/local/bin/bundle install'",
