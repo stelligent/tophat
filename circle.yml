@@ -19,7 +19,8 @@ deployment:
     branch: feature/circleci
     commands:
       - bundle exec ./packer-build.sh subnet-6f53a519 ubuntu-1404
-
+          timeout: 1200
+          
 machine:
   ruby:
     version: '2.2.1'
