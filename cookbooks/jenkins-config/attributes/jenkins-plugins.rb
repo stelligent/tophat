@@ -1,8 +1,6 @@
 node.default['jenkins-config']['jenkins-plugins'] = [
   {'name'    =>  'git',
    'version' => '2.5.2'},
-  {'name'    =>  'git-client',
-   'version' => '1.9.17'},
   {'name'    => 'job-dsl'},
   {'name'    => 'envinject'},
   {'name'    => 'rvm'},
