@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-case host_inventory['platform']
+case os[:family]
 
   when 'redhat'
     prereq_package_names = %w{
@@ -10,7 +10,7 @@ case host_inventory['platform']
       python-pip git mlocate
     }
 
-  when 'debian'
+  when 'ubuntu'
     prereq_package_names = %w{
       patch libyaml-dev libc6-dev autoconf gcc libreadline-dev zlib1g-dev
       libffi-dev openssl automake libtool bison libsqlite3-dev python-pip
