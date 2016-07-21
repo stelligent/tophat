@@ -1,8 +1,6 @@
 node.default['jenkins-config']['jenkins-plugins'] = [
   {'name'    =>  'git',
    'version' => '2.5.2'},
-  {'name'    =>  'git-client',
-   'version' => '1.19.7'},
   {'name'    => 'job-dsl'},
   {'name'    => 'envinject'},
   {'name'    => 'rvm'},
@@ -41,6 +39,10 @@ node.default['jenkins-config']['jenkins-plugins'] = [
   {'name'    => 'workflow-step-api',
    'version' => '2.2'},
   {'name'    => 'workflow-support',
-   'version' => '2.2'}
+   'version' => '2.2'},
+
+
+  {'name'    =>  'git-client',
+   'version' => '1.19.7'},
 ]
 
