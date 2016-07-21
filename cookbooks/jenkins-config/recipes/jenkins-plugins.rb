@@ -24,6 +24,8 @@ node['jenkins-config']['jenkins-plugins'].each do |plugin|
   end
   jenkins_plugin plugin['name'] do
     version plugin['version'] unless plugin['version'].nil?
+    retries 5
+    retry_delay 15
   end
 end unless node['jenkins-config']['jenkins-plugins'].nil? ||
            !node['jenkins-config']['jenkins-plugins'].respond_to?(:each)

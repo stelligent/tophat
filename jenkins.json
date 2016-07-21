@@ -2,23 +2,61 @@
     "variables": {
         "vpc_id": "",
         "subnet_id": "",
-        "sg_id": "",
         "berks_cookbooks_path": "",
-        "git_repo": ""
+        "git_repo": "",
+        "region": "us-east-1",
+        "source_ami": "ami-60b6c60a",
+        "ssh_username": "ec2-user",
+        "target_os": ""
     },
     "builders": [
         {
+            "name": "centos",
             "type": "amazon-ebs",
             "associate_public_ip_address": true,
-            "region": "us-east-1",
-            "source_ami": "ami-60b6c60a",
+            "region": "{{user `region`}}",
+            "source_ami": "{{user `source_ami`}}",
             "instance_type": "m4.large",
-            "ssh_username": "ec2-user",
+            "ssh_username": "{{user `ssh_username`}}",
             "ssh_pty" : "true",
             "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
             "subnet_id": "{{user `subnet_id`}}",
             "vpc_id": "{{user `vpc_id`}}",
-            "security_group_id": "{{user `sg_id`}}"
+            "tags": {
+              "os": "{{user `target_os`}}"
+            }
+        },
+        {
+            "name": "ubuntu",
+            "type": "amazon-ebs",
+            "associate_public_ip_address": true,
+            "region": "{{user `region`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "instance_type": "m4.large",
+            "ssh_username": "{{user `ssh_username`}}",
+            "ssh_pty" : "true",
+            "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
+            "subnet_id": "{{user `subnet_id`}}",
+            "vpc_id": "{{user `vpc_id`}}",
+            "tags": {
+              "os": "{{user `target_os`}}"
+            }
+        },
+        {
+            "name": "amznlinux",
+            "type": "amazon-ebs",
+            "associate_public_ip_address": true,
+            "region": "{{user `region`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "instance_type": "m4.large",
+            "ssh_username": "{{user `ssh_username`}}",
+            "ssh_pty" : "true",
+            "ami_name": "tophat-{{isotime \"2006-01-02-1504\"}}",
+            "subnet_id": "{{user `subnet_id`}}",
+            "vpc_id": "{{user `vpc_id`}}",
+            "tags": {
+              "os": "{{user `target_os`}}"
+            }
         }
     ],
     "provisioners": [
@@ -40,25 +78,54 @@
                     }
                 },
                 "jenkins": {
+                    "master": {
+                        "jvm_options": "-Djenkins.install.runSetupWizard=false"
+                    },
+
                     "executor": {
                         "timeout": 60
                     }
                 }
             }
-        },{
+        },
+        {
             "type": "file",
             "source": "./test/",
             "destination": "/tmp/infra-tests"
-        },{
+        },
+        {
             "type": "shell",
             "inline": [
-                "sudo yum -y install rubygem20-io-console",
+                "sudo yum -y install rubygem20-io-console"
+            ],
+            "only": ["amznlinux"]
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo yum -y install ruby"
+            ],
+            "only": ["centos"]
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo apt-add-repository -y ppa:brightbox/ruby-ng",
+                "sudo apt-get update",
+                "sudo apt-get -y install ruby2.2"
+            ],
+            "only": ["ubuntu"]
+        },
+        {
+            "type": "shell",
+            "inline": [
                 "sudo gem install serverspec",
                 "sudo gem install bundler",
                 "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && /usr/local/bin/bundle install'",
                 "sudo sh -c 'cd /tmp/infra-tests/default/serverspec && env RUBYLIB=`pwd` /usr/local/bin/rspec *_spec.rb'",
                 "sudo rm -f $HOME/.ssh/authorized_keys /root/.ssh/authorized_keys"
-            ]
+            ],
+            "only": ["ubuntu"]
         }
     ]
 }

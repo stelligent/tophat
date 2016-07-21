@@ -1,4 +1,4 @@
-template "/var/tmp/job-seed.xml" do
+template '/var/tmp/job-seed.xml' do
   source 'job-seed.xml.erb'
 
   variables(
@@ -8,7 +8,7 @@ template "/var/tmp/job-seed.xml" do
   )
 end
 
-jenkins_job "job-seed" do
+jenkins_job 'job-seed' do
   action :create
-  config "/var/tmp/job-seed.xml"
+  config '/var/tmp/job-seed.xml'
 end
