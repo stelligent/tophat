@@ -30,8 +30,6 @@ node.default['jenkins-config']['jenkins-plugins'] = [
    'version' => '2.3'},
   {'name'    => 'pipeline-stage-view',
    'version' => '1.6'},
-  {'name'    => 'workflow-scm-step',
-   'version' => '2.2'},
   {'name'    => 'workflow-cps-global-lib',
    'version' => '2.1'},
   {'name'    => 'pipeline-stage-step',
@@ -40,7 +38,8 @@ node.default['jenkins-config']['jenkins-plugins'] = [
    'version' => '2.2'},
   {'name'    => 'workflow-support',
    'version' => '2.2'},
-
+  {'name'    => 'workflow-scm-step',
+   'version' => '2.2'},
 
   {'name'    =>  'git-client',
    'version' => '1.19.7'},
