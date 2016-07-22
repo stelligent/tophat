@@ -3,11 +3,28 @@ general:
     only:
       - feature/circleci
 
+test:
+  override:
+    #- bundle exec kitchen test
+    - bundle exec echo foo
+
+dependencies:
+  pre:
+    - wget https://releases.hashicorp.com/packer/0.10.1/packer_0.10.1_linux_amd64.zip
+    - unzip packer_0.10.1_linux_amd64.zip
+    - chmod u+x packer
+    - sudo mv packer /usr/local/bin
+
 deployment:
-  aws:
+  packer:
+    branch: feature/circleci
     commands:
-      - ./packer-build.sh
+      - bundle exec ./packer-build.sh subnet-6f53a519 ubuntu-1404
 
 machine:
   ruby:
     version: '2.2.1'
+  services:
+    - docker
+  environment:
+    AWS_REGION: us-west-2
